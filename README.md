@@ -18,7 +18,27 @@ login your account and start download. <br />
 
 
 ## 設定：Nginx
+- install
 ```bash
+:~$ sudo apt update -y
+
+:~$ sudo apt install -y nginx
+
+:~$ sudo systemctl enable nginx & sudo systemctl start nginx
+```
+
+- setting
+```bash
+:~$ sudo vim /etc/nginx/nginx.conf
+http {
+        log_format compression '$remote_addr - $remote_user [$time_local] '
+                       '"$request" $status $bytes_sent '
+                       '"$http_referer" "$http_user_agent" "$gzip_ratio"';
+
+        access_log /spool/logs/nginx-access.log compression buffer=32k;
+        ...
+
+:~$ sudo vim /etc/nginx/sites-avaliable/jira-confluence
 server {
    listen 443 ssl;
    server_name work-zoe.tpigame.com;
